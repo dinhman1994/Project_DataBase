@@ -1,12 +1,13 @@
-var shortid = require('shortid');
-
-var db = require('../db.js');
-
-module.exports.index=function(req,res){
+module.exports.login=function(req,res){
 	res.render('login.pug');
 };
+module.exports.user=function(req,res){
+	res.render('user.pug');
+};
 module.exports.signup=function(req,res){
-    req.body.id = shortid.generate();
-	db.get('users').push(req.body).write();
-	res.render('signup.pug');
+    res.render('signup.pug');
+};
+
+module.exports.Buser=function(req,res){
+	res.redirect('/user');
 };
