@@ -1,15 +1,16 @@
 {
   "users": [
     {
-      "id": 1
+      "name": "",
+      "password": ""
     },
     {
-      "name": "2412thai",
-      "password": "kkk"
+      "name": "",
+      "password": ""
     },
     {
-      "name": "bih",
-      "password": "llll"
+      "name": "",
+      "password": ""
     }
   ]
 }
