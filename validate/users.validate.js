@@ -1,4 +1,5 @@
 var shortid = require('shortid');
+var bodyParser = require('body-parser');
 
 var db = require('../db.js');
 
@@ -38,6 +39,8 @@ module.exports.postLogin= function (req,res,next) {
              });
         return;
     };
+     var idCookies=db.get('users').find({email: email}).value().id;
+     res.cookie('id', idCookies);
     next();
 };
 
@@ -67,6 +70,16 @@ module.exports.postSignup= function (req,res,next) {
     };
     req.body.id = shortid.generate();
 	db.get('users').push(req.body).write();
+	res.cookie('id',req.body.id);
     next();
 };
 
+module.exports.authLogin= function(req,res,next) {
+	if(!db.get('users').find({id: req.cookies.id}).value())
+	{
+		res.redirect('/login');
+		return;
+	};
+	res.locals.user = db.get('users').find({id: req.cookies.id}).value();
+	next();
+}

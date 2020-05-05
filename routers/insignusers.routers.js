@@ -5,10 +5,6 @@ var validate = require('../validate/users.validate.js');
 
 var router = express.Router();
 
-router.get('/login',controller.login);
-router.get('/signup',controller.signup);
-
-router.post('/login',validate.postLogin,controller.Buser);
-router.post('/signup',validate.postSignup,controller.Buser);
+router.get('/',validate.authLogin,controller.user);
 
 module.exports = router;
