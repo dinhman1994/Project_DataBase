@@ -76,13 +76,7 @@ module.exports.postSignup= function (req,res,next) {
 };
 
 module.exports.authLogin= function(req,res,next) {
-	// if(!db.get('users').find({id: req.cookies.id}).value())
-	// {
-	// 	res.redirect('/login');
-	// 	return;
-	// };
-
-  queryString="select* from users where id="+"'"+req.cookies.id+"'";
+    queryString="select* from users where id="+"'"+req.cookies.id+"'";
     dbSQL.authLogin(queryString)
     .then(function(rows){
       if(rows.length>0)

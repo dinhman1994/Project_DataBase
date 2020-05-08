@@ -8,44 +8,12 @@ var connection = mysql.createConnection({
 
 connection.connect();
 var authE=[];
-// function authLogin(email,password) {
-   
-var errors=[];
+
+   var errors=[];
 var id="'binhbg14@gmail.com'";   
 var queryString="select* from users where email="+id;
 console.log(queryString);
-// connection.query(queryString, function (err, rows, fields) {
-//   var pass1 = false;
-//   var trade;
-//   if (err) throw err;
-//   for(i=0;i<rows.length;i++)
-//     {
-//       if('vv'===rows[i].email) 
-//         {
-//           pass1=true;
-//           break;
-//           trade=i;
-//         }
-//     }
-//     if(pass1===false)
-//     {
-//       errors.push("NO ACCOUNT");
-//       console.log(errors);
-//       return;
-//     }
-//     else
-//     {
-//         queryString="select password from users";
-//         connection.query(queryString, function (err, rows, fields) {
-//         if (err) throw err;
-//         if ('cc'===rows[trade].password)
-//           return;
-//         errors.push("WRONG PASSWORD");
-//         console.log(errors);
-//         });
-//     }
-    
-//     });
+
  
   function authLogin(queryString){
     return new Promise(function(resolve, reject){

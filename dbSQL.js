@@ -58,24 +58,6 @@ module.exports.readLogin = function (reqBody,done) {
     }); 
 };
     
-		   
-
-    	
-
-    // queryString="select password from users";
-    // console.log(queryString);
-    // connection.query(queryString, function (err, rows, fields) {
-    //   if (err) throw err;
-    //   for(i=0;i<rows.length;i++)
-    //   {
-    //   	if(reqBody.password===rows[i].password) 
-    //   		return;
-    //   }
-    //   console.log("IN2");
-    //   errors.push("WRONG PASSWORD!");
-    //   return;
-    // });
-    
 
 
 module.exports.write = function (Query) {

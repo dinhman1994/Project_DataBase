@@ -4,6 +4,11 @@ var bodyParser = require('body-parser');
 module.exports.login=function(req,res){
 	res.render('login.pug');
 };
+
+module.exports.logout=function(req,res){
+	res.clearCookie('id');
+	res.redirect('/');
+}
 module.exports.user=function(req,res){
 	res.render('user.pug',{
 		user: res.locals.user
