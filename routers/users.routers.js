@@ -11,7 +11,7 @@ var router = express.Router();
 router.get('/login',controller.login);
 router.get('/signup',controller.signup);
 
-router.post('/user',controller.logout);
+
 router.post('/login',validate.postLogin,controller.Buser);
 router.post('/signup',
 	upload.single('avatar'),

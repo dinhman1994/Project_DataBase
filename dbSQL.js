@@ -8,7 +8,7 @@ var connection = mysql.createConnection({
 
 connection.connect();
 
-module.exports.authLogin=function authLogin(queryString,errors){
+module.exports.read=function read(queryString,errors){
     return new Promise(function(resolve, reject){
 
       connection.query(queryString, function (err, rows, fields){
@@ -27,36 +27,6 @@ module.exports.authLogin=function authLogin(queryString,errors){
 };
 
 
-
-module.exports.readLogin = function (reqBody,done) {
-   
-    var errors=[];   
-    var queryString="select email from users";
-	connection.query(queryString, function (err, rows, fields) {
-      if (err) throw err;
-      for(i=0;i<rows.length;i++)
-      {
-      	if(reqBody.email===rows[i].email) 
-      		{
-
-      			connection.query(queryString, function (err, rows, fields) {
-			      if (err) throw err;
-			      for(i=0;i<rows.length;i++)
-			      {
-			      	if(reqBody.password===rows[i].password) 
-			      		return;
-			      }
-			      errors.push("WRONG PASSWORD!");
-			      done=true;
-			      return;
-	            });
-                  
-            }
-	    
-	  }
-      errors.push("NO ACCOUNT");
-    }); 
-};
     
 
 

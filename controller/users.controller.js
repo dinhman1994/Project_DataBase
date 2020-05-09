@@ -21,3 +21,8 @@ module.exports.signup=function(req,res){
 module.exports.Buser=function(req,res){
 	res.redirect('/user');
 };
+
+module.exports.history=function(req,res)
+{
+	res.render('history.pug');
+};

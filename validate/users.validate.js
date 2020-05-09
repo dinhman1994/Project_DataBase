@@ -1,5 +1,6 @@
 var shortid = require('shortid');
 var bodyParser = require('body-parser');
+var moment=require('moment');
 
 var db = require('../db.js');
 
@@ -9,7 +10,7 @@ module.exports.postLogin = function (req,res,next)
 {
   var errors=[];
   queryString="select* from users where email="+"'"+req.body.email+"'";
-    dbSQL.authLogin(queryString)
+    dbSQL.read(queryString)
     .then(function(rows){
       if(rows.length>0)
       {
@@ -75,13 +76,16 @@ module.exports.postSignup= function (req,res,next) {
     next();
 };
 
-module.exports.authLogin= function(req,res,next) {
+module.exports.authLogin = function(req,res,next) {
     queryString="select* from users where id="+"'"+req.cookies.id+"'";
-    dbSQL.authLogin(queryString)
+    dbSQL.read(queryString)
     .then(function(rows){
       if(rows.length>0)
       {
         res.locals.user = rows[0];
+        let authTime=moment().format('LLLL');
+        queryString="insert into accountLogin(id,timeLogin)value('"+rows[0].id+"','"+authTime+"')";
+        dbSQL.write(queryString);
         next();
       }
       else
@@ -91,4 +95,14 @@ module.exports.authLogin= function(req,res,next) {
       }
     });
 	
+};
+
+module.exports.authHistory = function(req,res,next)
+{
+  queryString="Select* from accountLogin where id='"+res.local.user.id+"'";
+  dbSQL.read(queryString)
+  .then(function(rows){
+    res.locals.data=rows;
+  });
+
 };
