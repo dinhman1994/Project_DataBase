@@ -86,7 +86,12 @@ module.exports.authLogin = function(req,res,next) {
         let authTime=moment().format('LLLL');
         queryString="insert into accountLogin(id,timeLogin)value('"+rows[0].id+"','"+authTime+"')";
         dbSQL.write(queryString);
-        next();
+        queryString="Select* from post where id='"+rows[0].id+"'";
+        dbSQL.read(queryString)
+        .then(function(rows){
+          res.locals.posts=rows;
+          next();
+        });
       }
       else
       {
@@ -94,6 +99,7 @@ module.exports.authLogin = function(req,res,next) {
         return;
       }
     });
+    
 	
 };
 

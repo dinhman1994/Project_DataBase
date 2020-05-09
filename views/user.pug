@@ -3,4 +3,8 @@ h1 HELLO #{user.name}
 br
 form(action='/user', method='POST')
  button LOG OUT
+ul
+  each post in posts
+     li
+       span=post.content
 a(href='/user/history') HISTORY

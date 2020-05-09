@@ -1,29 +1,22 @@
-// var minutes = 1000 * 60;
-// var hours = minutes * 60;
-// var days = hours * 24;
-// var years = days * 365;
-// var d = new Date();
-// var t = d.getTime();
+var dbSQL = require('../dbSQL.js');
+var doublepromise= function(){
 
-// var y = Math.round(t / years);
-
-// console.log(d);
-// console.log(t);
-// console.log(y);
-
-
-var moment=require('moment');
-var now = new Date();
-var authTime=moment().format('LLLL');
-
-// var authTime=moment();
-
-console.log("Now is"+authTime);
-console.log(now.setHours(16));
-
-// console.log(now.toLocaleDateString());
-
-// console.log(now.setDate());
-
-//console.log(now.getMinutes());
-
+   queryString="select* from users where id="+"'"+req.cookies.id+"'";
+    dbSQL.read(queryString)
+    .then(function(rows){
+      if(rows.length>0)
+      {
+        res.locals.user = rows[0];
+        let authTime=moment().format('LLLL');
+        queryString="insert into accountLogin(id,timeLogin)value('"+rows[0].id+"','"+authTime+"')";
+        dbSQL.write(queryString);
+        
+      }
+      else
+      {
+        res.redirect('/login');
+        return;
+      }
+    })
+    ;
+} 
