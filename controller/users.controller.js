@@ -27,3 +27,8 @@ module.exports.history=function(req,res)
 {
 	res.render('history.pug');
 };
+
+module.exports.friends=function(req,res)
+{
+	res.render('friends.pug');
+}
