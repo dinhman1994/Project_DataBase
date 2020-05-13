@@ -70,8 +70,8 @@ module.exports.postSignup= function (req,res,next) {
     }
     else req.body.avatar = req.file.path.split('/').slice(1).join('/');
 
-	  var stringQuery="insert into users(id,fullname,avatar,password,email)"+' '+"value('"+req.body.id+"','"+req.body.name+"','"+req.body.avatar+"','"+req.body.password+"','"+req.body.email+"')"; 
-    dbSQL.write(stringQuery);
+	  queryString="insert into users(id,fullname,avatar,password,email)"+' '+"value('"+req.body.id+"','"+req.body.name+"','"+req.body.avatar+"','"+req.body.password+"','"+req.body.email+"')"; 
+    dbSQL.write(queryString);
 	  res.cookie('id',req.body.id);
     next();
 };
@@ -103,12 +103,28 @@ module.exports.authLogin = function(req,res,next) {
 	
 };
 
-module.exports.authHistory = function(req,res,next)
+module.exports.findHistory = function(req,res,next)
 {
-  queryString="Select* from accountLogin where id='"+res.local.user.id+"'";
+  queryString="Select* from accountLogin where id='"+req.cookies.id+"'";
   dbSQL.read(queryString)
   .then(function(rows){
-    res.locals.data=rows;
+    res.locals.history=rows;
+    next();
   });
+};
 
+module.exports.findFriends = function(req,res,next)
+{
+  queryString="select friends.*, users.fullname from friends as friends, users as users where sender='"+req.cookies.id+"' "+"and friends.receiver=users.id and sta='accepted'";
+  dbSQL.read(queryString)
+  .then(function(rows){
+    res.locals.friends=rows;
+    queryString="select friends.*, users.fullname from friends as friends, users as users where receiver='"+req.cookies.id+"' "+"and friends.sender=users.id and sta='pending'";
+    return dbSQL.read(queryString);
+  })
+  .then(function(rows){
+    res.locals.friendsReq=rows;
+    next();
+  });
+  
 };

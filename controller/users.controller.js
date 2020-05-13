@@ -25,10 +25,15 @@ module.exports.Buser=function(req,res){
 
 module.exports.history=function(req,res)
 {
-	res.render('history.pug');
+	res.render('history.pug',{
+		history: res.locals.history
+	});
 };
 
 module.exports.friends=function(req,res)
 {
-	res.render('friends.pug');
+	res.render('friends.pug',{
+		friends: res.locals.friends,
+		friendsReq: res.locals.friendsReq
+	});
 }

@@ -1,1 +1,11 @@
 h1 FRIENDS
+ul 
+ each friend in friends
+  li
+   span=friend.fullname
+ul
+ each friendReq in friendsReq
+  li
+   form(action='/user/friends/accepted', method='POST')
+    span=friendReq.fullname
+    button ACCEPT

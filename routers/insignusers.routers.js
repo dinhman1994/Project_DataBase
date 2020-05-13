@@ -6,8 +6,8 @@ var validate = require('../validate/users.validate.js');
 var router = express.Router();
 
 router.get('/',validate.authLogin,controller.user);
-router.get('/history',controller.history);
-router.get('/friends',controller.friends);
+router.get('/history',validate.findHistory,controller.history);
+router.get('/friends',validate.findFriends,controller.friends);
 
 router.post('/',controller.logout);
 
