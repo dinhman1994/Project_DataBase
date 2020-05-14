@@ -1,0 +1,32 @@
+h1 SEARCH FRIENDS
+br
+h2 friendsAccepted
+ul
+ each friendAccepted in friendsAccepted
+  li
+   form(action='/user/friends/accepted', method='POST')
+    span=friendAccepted.fullname
+br
+h2 friendsReq
+ul
+ each friendReq in friendsReq
+  li
+   form(action='/user/friends/accepted', method='POST')
+    span=friendReq.fullname
+    button ACCEPT
+br
+h2 friendsReqted
+ul
+ each friendReqted in friendsReqted
+  li
+   form(action='/user/friends/accepted', method='POST')
+    span=friendReqted.fullname
+    button STOP 
+br
+h2 friends
+ul
+ each friend in friends
+  li
+   form(action='/user/friends/accepted', method='POST')
+    span=friend.fullname
+    button SEND REQUEST

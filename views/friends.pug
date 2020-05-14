@@ -1,4 +1,8 @@
 h1 FRIENDS
+br
+form(action="friends/search", method="GET")
+ input(type="text", name="q")
+ button Search
 ul 
  each friend in friends
   li

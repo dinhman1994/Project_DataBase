@@ -128,3 +128,69 @@ module.exports.findFriends = function(req,res,next)
   });
   
 };
+
+module.exports.filterFriends = function(req,res,next)
+{
+  let friends=[];
+  queryString="select* from users where fullname like '%"+req.query.q+"%'"+" and id != '"+req.cookies.id+"'";
+  let queryString2="select friends.*, users.fullname from friends, users where friends.sender='"+req.cookies.id+"'"+" and friends.receiver=users.id and friends.sta='accepted'";
+  let queryString3="select friends.*, users.fullname from friends, users where friends.receiver='"+req.cookies.id+"'"+" and friends.sender=users.id and friends.sta='pending'";
+  let queryString4="select friends.*, users.fullname from friends, users where friends.sender='"+req.cookies.id+"'"+" and friends.receiver=users.id and friends.sta='pending'";
+  
+  dbSQL.read(queryString)
+  .then(function(rows){
+       friends=rows;
+       return dbSQL.read(queryString2)
+  })
+  .then(function(rows){
+       res.locals.friendsAccepted=rows;
+       for(row of rows)
+       {
+        for(friend of friends)
+        {
+          if(row.receiver==friend.id)
+          {
+            friends.slice(friends.indexOf(friend),1);
+            break;
+          }
+        }
+       };
+       console.log('Find friends accepted');
+       return dbSQL.read(queryString3);
+  })
+  .then(function(rows){
+       res.locals.friendsReq=rows;
+       for(row of rows)
+       {
+        for(friend of friends)
+        {
+          if(row.sender==friend.id)
+          {
+            friends.slice(friends.indexOf(friend),1);
+            break;
+          }
+        }
+       };
+       console.log('Find friends request');
+       return dbSQL.read(queryString4);
+  })
+  .then(function(rows){
+       res.locals.friendsReqted=rows;
+       for(row of rows)
+       {
+        for(friend of friends)
+        {
+          if(row.receiver==friend.id)
+          {
+            friends.slice(friends.indexOf(friend),1);
+            break;
+          }
+        }
+       };
+       res.locals.friends=friends;
+       console.log('Find friends requested');
+       next();
+  });
+
+  
+};

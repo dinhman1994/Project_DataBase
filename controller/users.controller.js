@@ -37,3 +37,12 @@ module.exports.friends=function(req,res)
 		friendsReq: res.locals.friendsReq
 	});
 }
+module.exports.searchFr=function(req,res)
+{
+	res.render('searchFr.pug',{
+		friendsAccepted:res.locals.friendsAccepted,
+		friendsReq:res.locals.friendsReq,
+		friendsReqted:res.locals.friendsReqted,
+		friends:res.locals.friends
+	});
+}
