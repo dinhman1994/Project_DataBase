@@ -36,7 +36,8 @@ module.exports.friends=function(req,res)
 		friends: res.locals.friends,
 		friendsReq: res.locals.friendsReq
 	});
-}
+};
+
 module.exports.searchFr=function(req,res)
 {
 	res.render('searchFr.pug',{
@@ -45,4 +46,9 @@ module.exports.searchFr=function(req,res)
 		friendsReqted:res.locals.friendsReqted,
 		friends:res.locals.friends
 	});
-}
+};
+
+module.exports.bFriends=function(req,res)
+{
+	res.redirect('/user/friends');
+};

@@ -4,8 +4,9 @@ h2 friendsAccepted
 ul
  each friendAccepted in friendsAccepted
   li
-   form(action='/user/friends/accepted', method='POST')
+   form(action='/user/friends/unfriend', method='POST')
     span=friendAccepted.fullname
+    button(name='id', value=friendAccepted.receiver) UNFRIEND
 br
 h2 friendsReq
 ul
@@ -13,20 +14,20 @@ ul
   li
    form(action='/user/friends/accepted', method='POST')
     span=friendReq.fullname
-    button ACCEPT
+    button(name='id', value=friendReq.sender) ACCEPT
 br
 h2 friendsReqted
 ul
  each friendReqted in friendsReqted
   li
-   form(action='/user/friends/accepted', method='POST')
+   form(action='/user/friends/stop', method='POST')
     span=friendReqted.fullname
-    button STOP 
+    button(name='id', value=friendReqted.receiver) STOP 
 br
 h2 friends
 ul
  each friend in friends
   li
-   form(action='/user/friends/accepted', method='POST')
+   form(action='/user/friends/requested', method='POST')
     span=friend.fullname
-    button SEND REQUEST
+    button(name='id', value=friend.id) SEND REQUEST
