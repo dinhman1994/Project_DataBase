@@ -14,4 +14,4 @@ ul
   li
    form(action='/user/friends/accepted', method='POST')
     span=friendReq.fullname
-    button ACCEPT
+    button(name='id', value=friendReq.sender) ACCEPT

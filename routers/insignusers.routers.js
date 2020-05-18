@@ -11,10 +11,11 @@ router.get('/history',validate.findHistory,controller.history);
 router.get('/friends',validate.findFriends,controller.friends);
 router.get('/friends/search',validate.filterFriends,controller.searchFr);
 
-router.post('/',controller.logout);
 
 router.post('/friends/unfriend',frValidate.unfriend,controller.bFriends);
 router.post('/friends/accepted',frValidate.accepted,controller.bFriends);
 router.post('/friends/stop',frValidate.stop,controller.bFriends);
 router.post('/friends/requested',frValidate.requested,controller.bFriends);
+
+router.post('/',controller.logout);
 module.exports = router;
