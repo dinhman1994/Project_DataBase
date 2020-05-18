@@ -1,8 +1,12 @@
 var express = require('express');
+var multer  = require('multer');
 
 var controller=require('../controller/users.controller.js');
 var validate = require('../validate/users.validate.js');
 var frValidate = require('../validate/friends.validate.js');
+var postsValidate = require('../validate/posts.validate.js');
+
+var upload = multer({ dest: './public/postsImage/' });
 
 var router = express.Router();
 
@@ -16,6 +20,11 @@ router.post('/friends/unfriend',frValidate.unfriend,controller.bFriends);
 router.post('/friends/accepted',frValidate.accepted,controller.bFriends);
 router.post('/friends/stop',frValidate.stop,controller.bFriends);
 router.post('/friends/requested',frValidate.requested,controller.bFriends);
+
+router.post('/post',
+	upload.single('image'),
+	postsValidate.createPost,
+	controller.bPost);
 
 router.post('/',controller.logout);
 module.exports = router;

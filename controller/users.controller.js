@@ -52,3 +52,8 @@ module.exports.bFriends=function(req,res)
 {
 	res.redirect('/user/friends');
 };
+
+module.exports.bPost=function(req,res)
+{
+	res.redirect('/user');
+}

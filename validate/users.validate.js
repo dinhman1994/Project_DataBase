@@ -83,7 +83,8 @@ module.exports.authLogin = function(req,res,next) {
         let authTime=moment().format('LLLL');
         queryString="insert into accountLogin(id,timeLogin)value('"+rows[0].id+"','"+authTime+"')";
         dbSQL.write(queryString);
-        queryString="Select* from post where id='"+rows[0].id+"'";
+        queryString="Select* from post where idUser='"+rows[0].id+"'";
+        console.log(queryString);
         dbSQL.read(queryString)
         .then(function(rows){
           res.locals.posts=rows;
@@ -188,6 +189,4 @@ module.exports.filterFriends = function(req,res,next)
        next();
   });
 
-  
 };
-

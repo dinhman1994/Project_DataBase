@@ -8,7 +8,19 @@ ul
   each post in posts
      li
        span=post.content
+       img(src=post.image)
 a(href='/user/history') HISTORY
 br
 a(href='/user/friends') FRIENDS
-
+br
+h2 POSTS CONTENT
+br
+form(action='/user/post', method='POST', enctype="multipart/form-data")
+ .form-group
+   label(for='content') Content 
+   input#content.form-control(type='text', name='content')
+ .form-group
+   label(for='image') Image
+   input#image.form-control-file(type='file', name='image')
+   
+ button POST
