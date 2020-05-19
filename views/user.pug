@@ -2,6 +2,15 @@ h1 HELLO #{user.name}
 br
 img(src=user.avatar)
 br
+form(action='/user/post', method='GET')
+ span Title
+ select(name='title')
+  option Love
+  option Fitness
+  option Job
+  option Social
+ button Search
+br  
 form(action='/user', method='POST')
  button LOG OUT
 ul
@@ -13,6 +22,8 @@ a(href='/user/history') HISTORY
 br
 a(href='/user/friends') FRIENDS
 br
+a(href='/user/myPosts') VIEW YOUR POSTS
+br
 h2 POSTS CONTENT
 br
 form(action='/user/post', method='POST', enctype="multipart/form-data")
@@ -22,5 +33,11 @@ form(action='/user/post', method='POST', enctype="multipart/form-data")
  .form-group
    label(for='image') Image
    input#image.form-control-file(type='file', name='image')
-   
+ .form-group
+   span Title
+   select(name='title')
+    option Love
+    option Fitness
+    option Job
+    option Social 
  button POST

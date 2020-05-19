@@ -14,6 +14,8 @@ router.get('/',validate.authLogin,controller.user);
 router.get('/history',validate.findHistory,controller.history);
 router.get('/friends',validate.findFriends,controller.friends);
 router.get('/friends/search',validate.filterFriends,controller.searchFr);
+router.get('/post',postsValidate.filterPosts,controller.bPost);
+router.get('/myPosts',postsValidate.myPosts,controller.bPost);
 
 
 router.post('/friends/unfriend',frValidate.unfriend,controller.bFriends);
@@ -24,7 +26,8 @@ router.post('/friends/requested',frValidate.requested,controller.bFriends);
 router.post('/post',
 	upload.single('image'),
 	postsValidate.createPost,
-	controller.bPost);
+	controller.Buser);
+router.post('/post/liked',postsValidate.likePost,controller.backPost);
 
 router.post('/',controller.logout);
 module.exports = router;

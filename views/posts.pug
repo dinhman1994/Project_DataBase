@@ -1,0 +1,11 @@
+h1 POSTS
+ul
+  each post in posts
+     li
+      form(action='/user/post/liked', method='POST')
+       span=post.content
+       img(src=post.image)
+       button(name='postID', value=post.id) LIKE
+
+
+       

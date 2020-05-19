@@ -83,12 +83,20 @@ module.exports.authLogin = function(req,res,next) {
         let authTime=moment().format('LLLL');
         queryString="insert into accountLogin(id,timeLogin)value('"+rows[0].id+"','"+authTime+"')";
         dbSQL.write(queryString);
-        queryString="Select* from post where idUser='"+rows[0].id+"'";
-        console.log(queryString);
+        if(Object.keys(req.query).length===0)
+        {
+          console.log('Success !');
+        }
+        else
+        {
+          console.log('Have query !');
+        };
+
+        queryString="Select* from post where idUser!='"+rows[0].id+"'";
         dbSQL.read(queryString)
         .then(function(rows){
-          res.locals.posts=rows;
-          next();
+            res.locals.posts=rows;
+            next();
         });
       }
       else
@@ -190,3 +198,4 @@ module.exports.filterFriends = function(req,res,next)
   });
 
 };
+

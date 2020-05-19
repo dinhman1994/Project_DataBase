@@ -55,5 +55,12 @@ module.exports.bFriends=function(req,res)
 
 module.exports.bPost=function(req,res)
 {
-	res.redirect('/user');
+	res.render('posts.pug',{
+		posts: res.locals.posts
+	});
+};
+
+module.exports.backPost= function(req,res)
+{
+	res.redirect('/user/post');
 }
