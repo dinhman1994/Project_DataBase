@@ -28,6 +28,7 @@ router.post('/post',
 	postsValidate.createPost,
 	controller.Buser);
 router.post('/post/liked',postsValidate.likePost,controller.backPost);
+router.post('/post/unliked',postsValidate.unlikePost,controller.backPost);
 
 router.post('/',controller.logout);
 module.exports = router;

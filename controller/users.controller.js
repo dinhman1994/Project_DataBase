@@ -56,11 +56,12 @@ module.exports.bFriends=function(req,res)
 module.exports.bPost=function(req,res)
 {
 	res.render('posts.pug',{
-		posts: res.locals.posts
+		posts: res.locals.posts,
+		likedPosts: res.locals.likedPosts
 	});
 };
 
 module.exports.backPost= function(req,res)
 {
-	res.redirect('/user/post');
+	res.redirect('/user');
 }
