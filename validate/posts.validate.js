@@ -29,17 +29,36 @@ module.exports.createPost = function (req,res,next) {
 
 module.exports.filterPosts = function(req,res,next)
 {
-  let queryString="select* from post where title='"+req.query.title+"' and idUser != '"+req.cookies.id+"'";
+  let posts=[];
+  let likedPosts=[];	
+  let queryString=`select *
+                   from post
+                   inner join interNumbers
+                   on post.id=interNumbers.postID and post.idUser!='${req.cookies.id}' and title='${req.query.title}'`;
   dbSQL.read(queryString)
   .then(function(rows){
-  	res.locals.posts=rows;
-  	next();
-  });
+  	posts=rows;
+  	queryString=`select * from INTERACTIVE where userLikeID='${req.cookies.id}'`;
+  	return dbSQL.read(queryString);
+  })
+  .then(function(rows){
+    for(let row of rows)
+    {
+      for(let post of posts)
+      {
+      	if(row.postID===post.id)
+      	{
+           likedPosts.push(post);
+           posts.splice(posts.indexOf(post),1);
+      	}
+      }
+    }
+
+    res.locals.posts=posts;
+    res.locals.likedPosts=likedPosts;
+    next();
+  });                 
 };
-
-
-
-
 
 
 
@@ -54,7 +73,7 @@ module.exports.myPosts = function(req,res,next)
   dbSQL.read(queryString)
   .then(function(rows){
   	posts=rows;
-  	queryString=`select * from INTERACTIVE where userLikeID='${req.cookies.id}'`
+  	queryString=`select * from INTERACTIVE where userLikeID='${req.cookies.id}'`;
   	return dbSQL.read(queryString);
   })
   .then(function(rows){

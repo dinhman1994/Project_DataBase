@@ -12,7 +12,8 @@ module.exports.logout=function(req,res){
 module.exports.user=function(req,res){
 	res.render('user.pug',{
 		user: res.locals.user,
-		posts: res.locals.posts
+		posts: res.locals.posts,
+		likedPosts: res.locals.likedPosts
 	});
 };
 module.exports.signup=function(req,res){
