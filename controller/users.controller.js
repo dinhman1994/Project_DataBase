@@ -66,3 +66,10 @@ module.exports.backPost= function(req,res)
 {
 	res.redirect('/user');
 }
+
+module.exports.rank=function(req,res)
+{
+	res.render('rank.pug',{
+		rank: res.locals.rank
+	});
+} 

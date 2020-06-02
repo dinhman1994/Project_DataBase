@@ -68,9 +68,15 @@ module.exports.postSignup= function (req,res,next) {
     else req.body.avatar = req.file.path.split('/').slice(1).join('/');
 
 	  queryString="insert into users(id,fullname,avatar,password,email)"+' '+"value('"+req.body.id+"','"+req.body.name+"','"+req.body.avatar+"','"+req.body.password+"','"+req.body.email+"')"; 
-    dbSQL.write(queryString);
-	  res.cookie('id',req.body.id);
-    next();
+    dbSQL.read(queryString)
+    .then(function(rows){
+       res.cookie('id',req.body.id);
+       queryString=`insert into rank(userID) value ('${req.body.id}')`;
+       return dbSQL.read(queryString);   
+    })
+    .then(function(rows){
+       next();
+    });
 };
 
 module.exports.authLogin = function(req,res,next) {
@@ -221,3 +227,12 @@ module.exports.filterFriends = function(req,res,next)
 
 };
 
+module.exports.rank = function(req,res,next)
+{
+  let queryString=`select * from rank where userID='${req.cookies.id}'`;
+  dbSQL.read(queryString)
+  .then(function(rows){
+    res.locals.rank=rows;
+    next();
+  });
+};

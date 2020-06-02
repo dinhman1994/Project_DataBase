@@ -19,7 +19,11 @@ module.exports.createPost = function (req,res,next) {
      return dbSQL.read(queryString);
   })
   .then(function(rows){
-     next();
+     queryString=`update rank set numPosts = numPosts+1 where userID='${req.cookies.id}'`;
+     return dbSQL.read(queryString);
+  })
+  .then(function(rows){
+  	 next();
   });
   
 };
@@ -105,8 +109,12 @@ module.exports.likePost = function(req,res,next)
         return dbSQL.read(queryString);   
 	})
 	.then(function(rows){
-		next();
+		queryString=`update rank set likes = likes+1 where userID='${req.cookies.id}'`;
+		return dbSQL.read(queryString);
 	})
+	.then(function(rows){
+		next();
+	});
 
 };
 
@@ -117,6 +125,10 @@ module.exports.unlikePost = function(req,res,next)
 	.then(function(rows){
 		queryString=`delete from INTERACTIVE where userLikeID='${req.cookies.id}' and postID='${req.body.postID}'`;
         return dbSQL.read(queryString);
+	})
+	.then(function(rows){
+		queryString=`update rank set likes = likes-1 where userID='${req.cookies.id}'`;
+		return dbSQL.read(queryString);
 	})
 	.then(function(rows){
 		next();

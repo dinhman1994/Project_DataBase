@@ -14,6 +14,7 @@ router.get('/',validate.authLogin,controller.user);
 router.get('/history',validate.findHistory,controller.history);
 router.get('/friends',validate.findFriends,controller.friends);
 router.get('/friends/search',validate.filterFriends,controller.searchFr);
+router.get('/rank',validate.rank,controller.rank);
 router.get('/post',postsValidate.filterPosts,controller.bPost);
 router.get('/myPosts',postsValidate.myPosts,controller.bPost);
 

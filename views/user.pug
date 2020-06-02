@@ -1,4 +1,7 @@
-h1 HELLO #{user.name}
+h1 HELLO 
+ each thisUser in user
+  span=thisUser.fullname
+br
 br
 img(src=user.avatar)
 br
@@ -39,6 +42,8 @@ br
 a(href='/user/friends') FRIENDS
 br
 a(href='/user/myPosts') VIEW YOUR POSTS
+br
+a(href='/user/rank') RANK
 br
 h2 POSTS CONTENT
 br
