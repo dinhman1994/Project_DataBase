@@ -1,5 +1,29 @@
+module.exports.read=function read(queryString,errors){
+    return new Promise(function(resolve, reject){
 
-var friends=[1,2,3,4,5,6,7,8]
-var test=[];
-test.push(friends.indexOf(2));
-console.log(test);
+      connection.query(queryString, function (err, rows, fields){
+           if(err){
+            reject(err);
+           }
+           else{
+            resolve(rows);
+           }
+           
+      });
+
+    });
+
+    
+};
+
+function callback(fact,)
+{
+
+};
+
+let test= function read(fact,errors)
+{
+  return new Promise(function(resolve,reject){
+
+  });   
+}

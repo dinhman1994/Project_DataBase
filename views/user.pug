@@ -1,9 +1,6 @@
 h1 HELLO 
- each thisUser in user
-  span=thisUser.fullname
-br
-br
-img(src=user.avatar)
+  span=user.fullname
+  img(src=user.avatar)
 br
 form(action='/user/post', method='GET')
  span Title
@@ -25,7 +22,7 @@ ul
        span=post.content
        img(src=post.image)
        span=post.likes
-       button(name='postID', value=post.id) LIKE  
+       button(name='postID', value=post.postID) LIKE  
 h2 LIKEDPOST
 br
 ul
@@ -35,7 +32,7 @@ ul
        span=post.content
        img(src=post.image)
        span=post.likes
-       button(name='postID', value=post.id) UNLIKE  
+       button(name='postID', value=post.postID) UNLIKE  
 
 a(href='/user/history') HISTORY
 br

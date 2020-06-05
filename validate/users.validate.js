@@ -3,13 +3,13 @@ var bodyParser = require('body-parser');
 var moment=require('moment');
 var dbSQL = require('../dbSQL.js');
 
-module.exports.postLogin = function (req,res,next)
+module.exports.postLogin = async function (req,res,next)
 {
   var errors=[];
   queryString="select* from users where email="+"'"+req.body.email+"'";
-    dbSQL.read(queryString)
-    .then(function(rows){
-      if(rows.length>0)
+ 
+  let rows= await dbSQL.read(queryString);
+  if(rows.length>0)
       {
         if(req.body.password===rows[0].password)
         {
@@ -25,7 +25,7 @@ module.exports.postLogin = function (req,res,next)
           return;
         };
       }
-      else
+  else
       {
         errors.push("DO NOT HAVE ACCOUNT!");
         res.render('login.pug',{
@@ -33,11 +33,9 @@ module.exports.postLogin = function (req,res,next)
         });
         return;
       };
-    });
-
 };
 
-module.exports.postSignup= function (req,res,next) {
+module.exports.postSignup=  async function (req,res,next) {
     var errors=[];
     if(!req.body.name)
     {
@@ -68,15 +66,12 @@ module.exports.postSignup= function (req,res,next) {
     else req.body.avatar = req.file.path.split('/').slice(1).join('/');
 
 	  queryString="insert into users(id,fullname,avatar,password,email)"+' '+"value('"+req.body.id+"','"+req.body.name+"','"+req.body.avatar+"','"+req.body.password+"','"+req.body.email+"')"; 
-    dbSQL.read(queryString)
-    .then(function(rows){
-       res.cookie('id',req.body.id);
-       queryString=`insert into rank(userID) value ('${req.body.id}')`;
-       return dbSQL.read(queryString);   
-    })
-    .then(function(rows){
-       next();
-    });
+    let rows= await dbSQL.read(queryString);
+    res.cookie('id',req.body.id);
+    queryString=`insert into rank(userID) value ('${req.body.id}')`;
+    let rows2= await dbSQL.read(queryString);
+    next();
+
 };
 
 module.exports.authLogin = function(req,res,next) {
@@ -87,7 +82,7 @@ module.exports.authLogin = function(req,res,next) {
       {
         res.locals.user = rows[0];
         let authTime=moment().format('LLLL');
-        queryString="insert into accountLogin(id,timeLogin)value('"+rows[0].id+"','"+authTime+"')";
+        queryString="insert into accountLogin(userID,timeLogin)value('"+rows[0].id+"','"+authTime+"')";
         dbSQL.write(queryString);
         if(Object.keys(req.query).length===0)
         {
@@ -114,7 +109,7 @@ module.exports.authLogin = function(req,res,next) {
             {
               for(let post of posts)
               {
-                if(row.postID===post.id)
+                if(row.postID===post.postID)
                 {
                    likedPosts.push(post);
                    posts.splice(posts.indexOf(post),1);
@@ -139,7 +134,7 @@ module.exports.authLogin = function(req,res,next) {
 
 module.exports.findHistory = function(req,res,next)
 {
-  queryString="Select* from accountLogin where id='"+req.cookies.id+"'";
+  queryString="Select* from accountLogin where userID='"+req.cookies.id+"'";
   dbSQL.read(queryString)
   .then(function(rows){
     res.locals.history=rows;

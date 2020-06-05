@@ -50,7 +50,7 @@ module.exports.filterPosts = function(req,res,next)
     {
       for(let post of posts)
       {
-      	if(row.postID===post.id)
+      	if(row.postID===post.postID)
       	{
            likedPosts.push(post);
            posts.splice(posts.indexOf(post),1);
@@ -85,7 +85,7 @@ module.exports.myPosts = function(req,res,next)
     {
       for(let post of posts)
       {
-      	if(row.postID===post.id)
+      	if(row.postID===post.postID)
       	{
            likedPosts.push(post);
            posts.splice(posts.indexOf(post),1);
@@ -97,23 +97,30 @@ module.exports.myPosts = function(req,res,next)
     res.locals.likedPosts=likedPosts;
     next();
   });
-}
+};
 
 module.exports.likePost = function(req,res,next)
 {
 	req.body.id = shortid.generate();
 	let queryString="insert into INTERACTIVE(id,typeIn,postID,userLikeID) value('"+req.body.id+"','like','"+req.body.postID+"','"+req.cookies.id+"')";
+	console.log(queryString);
 	dbSQL.read(queryString)
 	.then(function(rows){
         queryString=`UPDATE interNumbers SET likes = likes+1 WHERE postID = '${req.body.postID}'`;
         return dbSQL.read(queryString);   
 	})
 	.then(function(rows){
-		queryString=`update rank set likes = likes+1 where userID='${req.cookies.id}'`;
+		queryString=`select rank.* from rank,post
+                     where 
+                     post.idUser=rank.userID and post.id='${req.body.postID}'`;
 		return dbSQL.read(queryString);
 	})
 	.then(function(rows){
-		next();
+		queryString=`update rank set likes = likes+1 where userID='${rows[0].userID}'`;
+		return dbSQL.read(queryString);
+	})
+	.then(function(rows){
+        next();
 	});
 
 };
@@ -127,10 +134,16 @@ module.exports.unlikePost = function(req,res,next)
         return dbSQL.read(queryString);
 	})
 	.then(function(rows){
-		queryString=`update rank set likes = likes-1 where userID='${req.cookies.id}'`;
+		queryString=`select rank.* from rank,post
+                     where 
+                     post.idUser=rank.userID and post.id='${req.body.postID}'`;
 		return dbSQL.read(queryString);
 	})
 	.then(function(rows){
-		next();
+		queryString=`update rank set likes = likes-1 where userID='${rows[0].userID}'`;
+		return dbSQL.read(queryString);
+	})
+	.then(function(rows){
+        next();
 	});
 }
