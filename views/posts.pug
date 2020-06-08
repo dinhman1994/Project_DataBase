@@ -1,3 +1,4 @@
+img(src="a")
 h1 POST
 br
 ul
@@ -7,7 +8,6 @@ ul
        span=post.content
        img(src=post.image)
        span=post.image
-       span=post.likes
        button(name='postID', value=post.postID) LIKE  
 h2 LIKEDPOST
 br
@@ -18,5 +18,4 @@ ul
        span=post.content
        img(src=post.image)
        span=post.image
-       span=post.likes
        button(name='postID', value=post.postID) UNLIKE  

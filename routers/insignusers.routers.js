@@ -17,6 +17,7 @@ router.get('/friends/search',validate.filterFriends,controller.searchFr);
 router.get('/rank',validate.rank,controller.rank);
 router.get('/post',postsValidate.filterPosts,controller.bPost);
 router.get('/myPosts',postsValidate.myPosts,controller.bPost);
+router.get('/test',controller.test);
 
 
 router.post('/friends/unfriend',frValidate.unfriend,controller.bFriends);

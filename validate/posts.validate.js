@@ -1,7 +1,7 @@
 var shortid = require('shortid');
 var bodyParser = require('body-parser');
-var dbSQL = require('../dbSQL.js');
 var moment=require('moment');
+var dbSQL = require('../dbSQL.js');
 
 module.exports.createPost = function (req,res,next) {
   req.body.id = shortid.generate();

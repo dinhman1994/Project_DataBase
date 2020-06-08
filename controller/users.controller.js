@@ -74,3 +74,8 @@ module.exports.rank=function(req,res)
 		rank: res.locals.rank
 	});
 } 
+
+module.exports.test=function(req,res)
+{
+   res.render('test.pug',{});
+}
