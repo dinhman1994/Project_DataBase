@@ -11,7 +11,6 @@ module.exports.createPost = function (req,res,next) {
   	console.log("No Image");
   }
   else req.body.image = req.file.path.split('/').slice(1).join('/');
-  console.log(req.body);
   let queryString="insert into post(content,times,idUser,id,image,title) value ('"+req.body.content+"','"+req.body.times+"','"+req.cookies.id+"','"+req.body.id+"','"+req.body.image+"','"+req.body.title+"')";
   dbSQL.read(queryString)
   .then(function(rows){
@@ -103,7 +102,6 @@ module.exports.likePost = function(req,res,next)
 {
 	req.body.id = shortid.generate();
 	let queryString="insert into INTERACTIVE(id,typeIn,postID,userLikeID) value('"+req.body.id+"','like','"+req.body.postID+"','"+req.cookies.id+"')";
-	console.log(queryString);
 	dbSQL.read(queryString)
 	.then(function(rows){
         queryString=`UPDATE interNumbers SET likes = likes+1 WHERE postID = '${req.body.postID}'`;

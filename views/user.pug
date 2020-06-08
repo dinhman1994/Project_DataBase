@@ -59,3 +59,14 @@ form(action='/user/post', method='POST', enctype="multipart/form-data")
     option Job
     option Social 
  button POST
+br
+br
+h2 TOP RANK
+br
+ul
+  each userRank in topRank
+     li
+      span=userRank.fullname
+      span RANK
+      span=userRank.STT
+

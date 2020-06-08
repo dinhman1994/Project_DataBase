@@ -1,6 +1,4 @@
-h1 POSTS
-br
-h2 POSTS
+h1 POST
 br
 ul
   each post in posts
@@ -8,9 +6,9 @@ ul
       form(action='/user/post/liked', method='POST')
        span=post.content
        img(src=post.image)
+       span=post.image
        span=post.likes
        button(name='postID', value=post.postID) LIKE  
-br
 h2 LIKEDPOST
 br
 ul
@@ -19,7 +17,6 @@ ul
       form(action='/user/post/unliked', method='POST')
        span=post.content
        img(src=post.image)
+       span=post.image
        span=post.likes
        button(name='postID', value=post.postID) UNLIKE  
-
-       

@@ -13,7 +13,8 @@ module.exports.user=function(req,res){
 	res.render('user.pug',{
 		user: res.locals.user,
 		posts: res.locals.posts,
-		likedPosts: res.locals.likedPosts
+		likedPosts: res.locals.likedPosts,
+		topRank: res.locals.topRank
 	});
 };
 module.exports.signup=function(req,res){

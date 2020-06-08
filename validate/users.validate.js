@@ -119,7 +119,20 @@ module.exports.authLogin = function(req,res,next) {
 
            res.locals.posts=posts;
            res.locals.likedPosts=likedPosts;
-          next();
+           queryString=`select r.*,
+                        (
+                          select distinct count(*) + 1
+                            from rank
+                            where likes > r.likes
+                        ) as STT,users.fullname from rank r,users
+                        where r.userID=users.id
+                        order by likes desc 
+                        limit 10`;
+            return dbSQL.read(queryString);             
+        })
+        .then(function(rows){
+            res.locals.topRank=rows;
+            next();
         });
       }
       else
@@ -224,10 +237,30 @@ module.exports.filterFriends = function(req,res,next)
 
 module.exports.rank = function(req,res,next)
 {
-  let queryString=`select * from rank where userID='${req.cookies.id}'`;
+  // let queryString=`select * from rank where userID='${req.cookies.id}'`;
+  // dbSQL.read(queryString)
+  // .then(function(rows){
+  //   res.locals.rank=rows;
+  //   next();
+  // }); 
+
+  let queryString=`select r.*,
+                    (
+                      select distinct count(*) + 1
+                        from rank
+                        where likes > r.likes
+                    ) as STT from rank r
+                    order by likes desc`;
   dbSQL.read(queryString)
   .then(function(rows){
-    res.locals.rank=rows;
+    for(row of rows)
+    {
+      if(row.userID===req.cookies.id)
+      {
+        res.locals.rank=row;
+        break;
+      }
+    }
     next();
-  });
+  });                  
 };
