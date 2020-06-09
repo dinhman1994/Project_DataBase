@@ -14,7 +14,13 @@ module.exports.postLogin = async function (req,res,next)
         if(req.body.password===rows[0].password)
         {
           res.cookie('id',rows[0].id);
-          next();
+          let authTime=moment().format('LLLL');
+          queryString="insert into accountLogin(userID,timeLogin)value('"+rows[0].id+"','"+authTime+"')";
+          console.log(queryString);
+          dbSQL.read(queryString)
+          .then(function(rows){
+             next();
+          });
         }
         else
         {
@@ -64,6 +70,17 @@ module.exports.postSignup=  async function (req,res,next) {
       console.log("Hay qua");
     }
     else req.body.avatar = req.file.path.split('/').slice(1).join('/');
+    let authTime=moment().format('LLLL');
+    queryString="insert into accountLogin(userID,timeLogin)value('"+req.body.id+"','"+authTime+"')";
+    dbSQL.write(queryString);
+    if(Object.keys(req.query).length===0)
+        {
+          console.log('Success !');
+        }
+    else
+        {
+          console.log('Have query !');
+        };
 
 	  queryString="insert into users(id,fullname,avatar,password,email)"+' '+"value('"+req.body.id+"','"+req.body.name+"','"+req.body.avatar+"','"+req.body.password+"','"+req.body.email+"')"; 
     let rows= await dbSQL.read(queryString);
@@ -81,17 +98,6 @@ module.exports.authLogin = function(req,res,next) {
       if(rows.length>0)
       {
         res.locals.user = rows[0];
-        let authTime=moment().format('LLLL');
-        queryString="insert into accountLogin(userID,timeLogin)value('"+rows[0].id+"','"+authTime+"')";
-        dbSQL.write(queryString);
-        if(Object.keys(req.query).length===0)
-        {
-          console.log('Success !');
-        }
-        else
-        {
-          console.log('Have query !');
-        };
         let posts=[];
         let likedPosts=[];
         queryString=`select *
@@ -151,6 +157,11 @@ module.exports.findHistory = function(req,res,next)
   dbSQL.read(queryString)
   .then(function(rows){
     res.locals.history=rows;
+    queryString=`Select* from users where id='${req.cookies.id}'`;
+    return dbSQL.read(queryString);
+  })
+  .then(function(rows){
+    res.locals.user=rows[0];
     next();
   });
 };

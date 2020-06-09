@@ -1,9 +1,62 @@
-img(src="a")
+doctype html
+head
+  title ranks
+  meta(charset='utf-8')
+  link(rel='stylesheet', type='text/css', href='ransk.css')
+  style(type='text/css').
+    body{
+    background-color: #333333;
+    }
+    h1 {
+    text-align: center;
+    font-size: 70px;
+    color: #FFCC66;
+    letter-spacing: .1em;
+    text-shadow: -1px -1px 1px #111, 2px 2px 1px #363636;
+    margin-bottom: -10px;
+    }
+    h2{
+    text-align: center;
+    font-size: 30px;
+    color: #FFCC66;
+    letter-spacing: .1em;
+    text-shadow: -1px -1px 1px #111, 2px 2px 1px #363636;
+    }
+    .tables{
+    display: flex;
+    justify-content: center;
+    }
+    th{
+    font-size: 30px;
+    }
+    table{
+    color: #FFFFCC;
+    }
+    td{
+    display: flex;
+    padding-left: 200px;
+    }
+    table, th, td {
+    border: 1px solid white;
+    border-collapse: collapse;
+    }
 h1 RANK
 br
-h2 LIKES
-span Rank
-span=rank.STT 
-
-
-
+h2 ALWAYS SMILE !
+.tables
+  table(style='width:50%')
+    tr
+      th Ranks
+    tr
+      td
+        ol
+           li
+            span RANK
+            span=rank.STT
+            br
+            span NUM OF LIKES #{rank.likes}
+            br
+            span NUM OF POST #{rank.numPosts}
+            br
+form(action='/user', method='GET')
+ button BACK 

@@ -1,3 +1,20 @@
+//- h1 LOGIN
+
+//- if errors
+//-  each error in errors
+//-   .alert.alert-danger= error
+//- form(action='/login', method='POST')
+//-  .form-group
+//-    label(for='email') Email 
+//-    input#email.form-control(type='text', name='email')
+//-  .form-group
+//-    label(for='password') Password
+//-    input#password.form-control(type='text', name='password')
+   
+//-  button LOGIN
+//- br
+//- a(href='/') GO BACK
+
 doctype html
 head
   title Login
@@ -22,10 +39,10 @@ head
     .night .content {
     color: white;
     }
-    form input#name{
+    form input#namee{
     margin-left: 80px;
     }
-    form input#password{
+    form input#passwordd{
     margin-left: 30px;
     }
     .buttonLogin{
@@ -282,35 +299,15 @@ head
 #fullpage
   .section
     .content RANK POST
-
-
-
-
-
-
-    form.login(action='/signup', method='POST', enctype="multipart/form-data")
+    form.login(action='/login', method='POST')
       .header
-        label(for='name') Name: 
-        input#name.form-control(type='text', name='name')
         label(for='email') Email: 
         input#name(type='text', name='email')
         br
         label(for='password') Password: 
         input#password(type='text', name='password')
-        label(for='avatar') Avatar
-        input#avatar.form-control-file(type='file', name='avatar')
         br
-        button.buttonLogin SIGNUP
-    br
-    br
-    br
-    br
-    form.login(action='/login', method='GET')
-     button.buttonLogin LOGIN
-    br
-    form.login(action='/', method='GET')
-     button.buttonLogin GO BACK
-
+        button.buttonLogin LOGIN
     .time-circle
       .sun
       .moon
@@ -332,29 +329,4 @@ script(type='text/javascript').
   $("#switch").addClass("switched");
   }
   });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

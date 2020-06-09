@@ -1,0 +1,25 @@
+img(src="bg")
+h1 POST
+br
+ul
+  each post in posts
+     li
+      form(action='/user/post/liked', method='POST')
+       span=post.content
+       img(src='uploads/e4e3be0494ccf50a73ddd7fe03c9c755', width='613', height='193', alt='No Image')
+       span=post.image
+       br
+       span=post.likes
+       button(name='postID', value=post.postID) LIKE  
+h2 LIKEDPOST
+br
+ul
+  each post in likedPosts
+     li
+      form(action='/user/post/unliked', method='POST')
+       span=post.content
+       img(src='postsImage/8bd57b73393bd7f51df41dea0b81d1de', width='613', height='193', alt='No Image')
+       span=post.image
+       br
+       span=post.likes
+       button(name='postID', value=post.postID) UNLIKE  

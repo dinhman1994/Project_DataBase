@@ -1,21 +1,151 @@
-img(src="a")
-h1 POST
-br
-ul
-  each post in posts
-     li
-      form(action='/user/post/liked', method='POST')
-       span=post.content
-       img(src=post.image)
-       span=post.image
-       button(name='postID', value=post.postID) LIKE  
-h2 LIKEDPOST
-br
-ul
-  each post in likedPosts
-     li
-      form(action='/user/post/unliked', method='POST')
-       span=post.content
-       img(src=post.image)
-       span=post.image
-       button(name='postID', value=post.postID) UNLIKE  
+doctype html
+head
+  title Post
+  meta(charset='utf-8')
+  link(rel='stylesheet', type='text/css', href='post.css')
+  style(type='text/css').
+    .header{
+    display: grid;
+    grid-template-columns:  1fr 1fr;
+    height: 35px;
+    padding: 3px 0;
+    }
+    .header .contact{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #610B0B;
+    }
+    .header .contact .sdt{
+    position: relative;
+    right: 80px;
+    font-family: Aria;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    }
+    .header .contact .email{
+    position: relative;
+    right: 0px;
+    font-family: Aria;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    }
+    .header .contact .imgPhone{
+    width: 20px;
+    height: 20px;
+    position: relative;
+    right: 220px;
+    }
+    .header .contact .imgEmail{
+    width: 20px;
+    height: 20px;
+    position: relative;
+    right: 300px;
+    }
+    .header .sign{
+    position: relative;
+    background-color: #610B0B;
+    font-family: Aria;
+    color: white;
+    font-size: 20px;
+    }
+    .cc{
+    position: relative;
+    margin-right: 30px;
+    }
+    .body1{
+    display: grid;
+    grid-template-columns:  1fr 1fr;
+    height: 35px;
+    padding: 3px 0;
+    }
+    .liked{
+    position: relative;
+    margin-right: 120px;
+    margin-top: 23px;
+    color: black;
+    left: 170px;
+    }
+    .like{
+    position: relative;
+    margin-right: 160px;
+    margin-top: 23px;
+    color: black;
+    left: 160px;
+    border-right: 5px solid #ccc;
+    height: 100%;
+    }
+    h1{
+    text-decoration: underline;
+    }
+    .likes:hover {
+    background: #03A9F4 !important;
+    color: white !important;
+    border-radius:5px;
+    font-weight: bold;
+    }
+    .likes:link, .likes:visited {
+    width: fit-content;
+    padding: 0.5em 1em;
+    text-align: center;
+    float: inherit;
+    margin: 0em auto;
+    color: #ffffff;
+    background: #00000026;
+    border-radius:5px;
+    }
+    .unlike:hover {
+    background: red !important;
+    color: white !important;
+    border-radius:5px;
+    font-weight: bold;
+    }
+    .unlike:link, .unlike:visited {
+    width: fit-content;
+    padding: 0.5em 1em;
+    text-align: center;
+    float: inherit;
+    margin: 0em auto;
+    color: #ffffff;
+    background: #00000026;
+    border-radius:5px;
+    }
+// BODY
+.header
+  .contact
+    a.sdt(href='#') &Dstrok;T: 0984.669.256
+    a.email(href='#') Email: database@gmail.com 
+  .sign
+    p.cc Cung c&#x1EA5;p tr&#x1EA3;i nghi&#x1EC7;m tuy&#x1EC7;t v&#x1EDD;i cho nh&#x1EEF;ng ng&#x1B0;&#x1EDD;i th&iacute;ch tr&#x1EA3;i nghi&#x1EC7;m!!!
+// Thân
+.body1
+  .like
+    h1 POST
+    br
+    ul
+      each post in posts
+        li
+          form(action='/user/post/liked', method='POST')
+            span=post.content
+            img(src=post.image)
+            span=post.image
+            span=post.likes
+            button.likes(name='postID', value=post.postID) LIKE  
+  .liked
+    h1 LIKEDPOST
+    br
+    ul
+      each post in likedPosts
+        li
+          form(action='/user/post/unliked', method='POST')
+           span=post.content
+           img(src=post.image)
+           span=post.image
+           span=post.likes
+           button.unlike(name='postID') UNLIKE  
+form(action='/user', method='GET')
+ button BACK 

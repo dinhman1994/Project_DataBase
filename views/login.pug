@@ -1,20 +1,3 @@
-//- h1 LOGIN
-
-//- if errors
-//-  each error in errors
-//-   .alert.alert-danger= error
-//- form(action='/login', method='POST')
-//-  .form-group
-//-    label(for='email') Email 
-//-    input#email.form-control(type='text', name='email')
-//-  .form-group
-//-    label(for='password') Password
-//-    input#password.form-control(type='text', name='password')
-   
-//-  button LOGIN
-//- br
-//- a(href='/') GO BACK
-
 doctype html
 head
   title Login
@@ -39,10 +22,10 @@ head
     .night .content {
     color: white;
     }
-    form input#namee{
+    form input#name{
     margin-left: 80px;
     }
-    form input#passwordd{
+    form input#password{
     margin-left: 30px;
     }
     .buttonLogin{
@@ -308,6 +291,15 @@ head
         input#password(type='text', name='password')
         br
         button.buttonLogin LOGIN
+    br
+    br
+    br
+    br
+    form.login(action='/signup', method='GET')
+     button.buttonLogin SIGNUP
+    br
+    form.login(action='/', method='GET')
+     button.buttonLogin GO BACK
     .time-circle
       .sun
       .moon

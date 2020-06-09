@@ -1,0 +1,75 @@
+img(src="../newPublic/a.png")
+h1 HELLO 
+  span=user.fullname
+  img(src=user.avatar)
+br
+br
+
+form(action='/user/post', method='GET')
+ span Title
+ select(name='title')
+  option Love
+  option Fitness
+  option Job
+  option Social
+ button Search
+br  
+form(action='/user', method='POST')
+ button LOG OUT
+h2 POSTS
+br
+ul
+  each post in posts
+     li
+      form(action='/user/post/liked', method='POST')
+       span=post.content
+       img(src=post.image)
+       span=post.likes
+       button(name='postID', value=post.postID) LIKE  
+h2 LIKEDPOST
+br
+ul
+  each post in likedPosts
+     li
+      form(action='/user/post/unliked', method='POST')
+       span=post.content
+       img(src=post.image)
+       span=post.likes
+       button(name='postID', value=post.postID) UNLIKE  
+
+a(href='/user/history') HISTORY
+br
+a(href='/user/friends') FRIENDS
+br
+a(href='/user/myPosts') VIEW YOUR POSTS
+br
+a(href='/user/rank') RANK
+br
+h2 POSTS CONTENT
+br
+form(action='/user/post', method='POST', enctype="multipart/form-data")
+ .form-group
+   label(for='content') Content 
+   input#content.form-control(type='text', name='content')
+ .form-group
+   label(for='image') Image
+   input#image.form-control-file(type='file', name='image')
+ .form-group
+   span Title
+   select(name='title')
+    option Love
+    option Fitness
+    option Job
+    option Social 
+ button POST
+br
+br
+h2 TOP RANK
+br
+ul
+  each userRank in topRank
+     li
+      span=userRank.fullname
+      span RANK
+      span=userRank.STT
+

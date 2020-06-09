@@ -5,6 +5,7 @@ var controller=require('../controller/users.controller.js');
 var validate = require('../validate/users.validate.js');
 var frValidate = require('../validate/friends.validate.js');
 var postsValidate = require('../validate/posts.validate.js');
+var controllPost = require('../index.js');
 
 var upload = multer({ dest: './public/postsImage/' });
 

@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 
 module.exports.login=function(req,res){
 	res.render('login.pug');
-};
+}
 
 module.exports.logout=function(req,res){
 	res.clearCookie('id');
@@ -16,21 +16,22 @@ module.exports.user=function(req,res){
 		likedPosts: res.locals.likedPosts,
 		topRank: res.locals.topRank
 	});
-};
+}
 module.exports.signup=function(req,res){
     res.render('signup.pug');
-};
+}
 
 module.exports.Buser=function(req,res){
 	res.redirect('/user');
-};
+}
 
 module.exports.history=function(req,res)
 {
 	res.render('history.pug',{
-		history: res.locals.history
+		history: res.locals.history,
+		user: res.locals.user
 	});
-};
+}
 
 module.exports.friends=function(req,res)
 {
@@ -38,7 +39,7 @@ module.exports.friends=function(req,res)
 		friends: res.locals.friends,
 		friendsReq: res.locals.friendsReq
 	});
-};
+}
 
 module.exports.searchFr=function(req,res)
 {
@@ -48,12 +49,12 @@ module.exports.searchFr=function(req,res)
 		friendsReqted:res.locals.friendsReqted,
 		friends:res.locals.friends
 	});
-};
+}
 
 module.exports.bFriends=function(req,res)
 {
 	res.redirect('/user/friends');
-};
+}
 
 module.exports.bPost=function(req,res)
 {
@@ -61,7 +62,7 @@ module.exports.bPost=function(req,res)
 		posts: res.locals.posts,
 		likedPosts: res.locals.likedPosts
 	});
-};
+}
 
 module.exports.backPost= function(req,res)
 {

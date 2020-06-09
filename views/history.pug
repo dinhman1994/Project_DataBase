@@ -1,6 +1,61 @@
-img(src="a")
+doctype html
+head
+  title History
+  meta(charset='utf-8')
+  link(rel='stylesheet', type='text/css', href='Histsory.css')
+  style(type='text/css').
+    body{
+    background-image: url('bg.png');
+    background-color: #333333;
+    }
+    h1 {
+    text-align: center;
+    font-size: 70px;
+    color: #FFCC66;
+    letter-spacing: .1em;
+    text-shadow: -1px -1px 1px #111, 2px 2px 1px #363636;
+    margin-bottom: -10px;
+    }
+    h2{
+    text-align: center;
+    font-size: 30px;
+    color: #FFCC66;
+    letter-spacing: .1em;
+    text-shadow: -1px -1px 1px #111, 2px 2px 1px #363636;
+    }
+    .tables{
+    display: flex;
+    justify-content: center;
+    }
+    th{
+    font-size: 30px;
+    }
+    table{
+    color: #FFFFCC;
+    }
+    td{
+    display: flex;
+    padding-left: 200px;
+    }
+    table, th, td {
+    border: 1px solid white;
+    border-collapse: collapse;
+    }
 h1 HISTORY
-ul
- each hisLogin in history
-  li
-    span=hisLogin.timeLogin
+img(src='bg')
+form(action='/user', method='GET')
+ button BACK 
+h2 
+  span=user.fullname
+
+.tables
+  table(style='width:50%')
+    tr
+      th History Login
+    tr
+      td
+        ul
+          each hisLogin in history
+           li
+            span=hisLogin.timeLogin
+        

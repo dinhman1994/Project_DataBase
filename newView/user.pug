@@ -397,6 +397,10 @@ head
             | Comunication
             br
             small Where you find yourself
+      .search
+        form#search(action="friends/search", method="GET")
+          input(type="text", name="q",value='Search Friends')
+          button Search
         
       .menu_nav
         ul

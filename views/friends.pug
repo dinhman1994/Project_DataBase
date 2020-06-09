@@ -1,18 +1,86 @@
-img(src="a")
-h1 FRIENDS
-br
-form(action="friends/search", method="GET")
- input(type="text", name="q")
- button Search
-ul 
- each friend in friends
-  li
-   span=friend.fullname
-br
-h2 FRIENDS REQUEST
-ul
- each friendReq in friendsReq
-  li
-   form(action='/user/friends/accepted', method='POST')
-    span=friendReq.fullname
-    button(name='id', value=friendReq.sender) ACCEPT
+doctype html
+head
+  title Friends
+  meta(charset='utf-8')
+  link(rel='stylesheet', type='text/css', href='friendss.css')
+  style(type='text/css').
+    body{
+    background-color: #444444
+    }
+    h1 {
+    text-align: center;
+    font-size: 40px;
+    color: #FFCC66;
+    letter-spacing: .1em;
+    text-shadow: -1px -1px 1px #111, 2px 2px 1px #363636;
+    margin-bottom: -10px;
+    }
+    input[type="text"]{
+    width:500px;
+    position: relative;
+    left: 400px;
+    }
+    .button{
+    position: relative;
+    left: 400px;
+    }
+    .button:hover{
+    background-color: blue;
+    color: yellow;
+    font-weight: bold;
+    }
+    .accepts:hover{
+    background-color: blue;
+    color: yellow;
+    font-weight: bold;
+    }
+    .table{
+    display: grid;
+    grid-template-columns:  1fr 1fr;
+    height: 35px;
+    padding: 3px 0;
+    }
+    .listF{
+    position: relative;
+    left:80px;
+    margin-top: 30px;
+    }
+    .accept{
+    position: relative;
+    left:80px;
+    margin-top: 30px;
+    }
+    .friend{
+    margin-top: 30px;
+    border-right: 3px solid #FFCC44;
+    }
+    .friendReq{
+    margin-top: 30px;
+    }
+    li{
+    color: #FFFFCC;
+    }
+.search
+  form(action='friends/search', method='GET')
+    input(placeholder='Search', type='text', name='q')
+    button.button Search
+.table
+  .friend
+    h1 FRIENDS
+    .listF
+      ul
+        each friend in friends
+          li
+            span=friend.fullname
+      br
+  .friendReq
+    h1 FRIENDS REQUEST
+    .accept
+      ul  
+        each friendReq in friendsReq
+         li
+          form(action='/user/friends/accepted', method='POST')
+           span=friendReq.fullname
+            button.accepts(name='id', value=friendReq.sender) ACCEPT
+form(action='/user', method='GET')
+ button BACK 

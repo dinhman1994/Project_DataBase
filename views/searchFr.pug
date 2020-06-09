@@ -1,33 +1,153 @@
-h1 SEARCH FRIENDS
+doctype html
+head
+  title Search
+  meta(charset='utf-8')
+  link(rel='stylesheet', type='text/css', href='search.css')
+  style(type='text/css').
+    body{
+    background-color: #333;
+    }
+    .titles{
+    text-align: center;
+    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
+    font-size: 50px;
+    height: 100px;
+    padding-top: 0px;
+    color: #e0dfdc;
+    background-color: #333;
+    letter-spacing: .1em;
+    text-shadow: 0 -1px 0 #fff, 0 1px 0 #2e2e2e, 0 2px 0 #2c2c2c, 0 3px 0 #2a2a2a, 0 4px 0 #282828, 0 5px 0 #262626, 0 6px 0 #242424, 0 7px 0 #222, 0 8px 0 #202020, 0 9px 0 #1e1e1e, 0 10px 0 #1c1c1c, 0 11px 0 #1a1a1a, 0 12px 0 #181818, 0 13px 0 #161616, 0 14px 0 #141414, 0 15px 0 #121212, 0 22px 30px rgba(0, 0, 0, 0.9);
+    }
+    .all{
+    display: grid;
+    grid-template-columns:  1fr 1fr 1fr 1fr;
+    height: 35px;
+    padding: 3px 0;
+    }
+    .required{
+    margin-right: 90px;
+    justify-content: center;
+    align-items: center;
+    color: yellow;
+    border-right: 5px solid #ccc;
+    }
+    .accepted{
+    padding-left: 35px;
+    margin-right: 90px;
+    justify-content: center;
+    align-items: center;
+    color: yellow;
+    border-right: 5px solid #ccc;
+    }
+    .requested{
+    margin-right: 90px;
+    justify-content: center;
+    align-items: center;
+    color: yellow;
+    border-right: 5px solid #ccc;
+    }
+    .friends{
+    justify-content: center;
+    align-items: center;
+    color: yellow;
+    }
+    .accept:hover {
+    background: #03A9F4 !important;
+    color: white !important;
+    border-radius:5px;
+    }
+    .accept:link, .accept:visited {
+    width: fit-content;
+    padding: 0.5em 1em;
+    text-align: center;
+    float: inherit;
+    margin: 0em auto;
+    color: #ffffff;
+    background: #00000026;
+    border-radius:5px;
+    }
+    .unfriend:hover {
+    background: #03A9F4 !important;
+    color: white !important;
+    border-radius:5px;
+    }
+    .unfriend:link, .unfriend:visited {
+    width: fit-content;
+    padding: 0.5em 1em;
+    text-align: center;
+    float: inherit;
+    margin: 0em auto;
+    color: #ffffff;
+    background: #00000026;
+    border-radius:5px;
+    }
+    .send:hover {
+    background: #03A9F4 !important;
+    color: white !important;
+    border-radius:5px;
+    }
+    .send:link, .send:visited {
+    width: fit-content;
+    padding: 0.5em 1em;
+    text-align: center;
+    float: inherit;
+    margin: 0em auto;
+    color: #ffffff;
+    background: #00000026;
+    border-radius:5px;
+    }
+    .stop:hover {
+    background: #03A9F4 !important;
+    color: white !important;
+    border-radius:5px;
+    }
+    .stop:link, .stop:visited {
+    width: fit-content;
+    padding: 0.5em 1em;
+    text-align: center;
+    float: inherit;
+    margin: 0em auto;
+    color: #ffffff;
+    background: #00000026;
+    border-radius:5px;
+    }
+h1.titles SEARCH FRIENDS
 br
-h2 friendsAccepted
-ul
- each friendAccepted in friendsAccepted
-  li
-   form(action='/user/friends/unfriend', method='POST')
-    span=friendAccepted.fullname
-    button(name='id', value=friendAccepted.receiver) UNFRIEND
-br
-h2 friendsReq
-ul
- each friendReq in friendsReq
-  li
-   form(action='/user/friends/accepted', method='POST')
-    span=friendReq.fullname
-    button(name='id', value=friendReq.sender) ACCEPT
-br
-h2 friendsReqted
-ul
- each friendReqted in friendsReqted
-  li
-   form(action='/user/friends/stop', method='POST')
-    span=friendReqted.fullname
-    button(name='id', value=friendReqted.receiver) STOP 
-br
-h2 friends
-ul
- each friend in friends
-  li
-   form(action='/user/friends/requested', method='POST')
-    span=friend.fullname
-    button(name='id', value=friend.id) SEND REQUEST
+.all
+  .accepted
+    h2 Accepted
+    ul
+    each friendAccepted in friendsAccepted
+      li
+        form(action='/user/friends/unfriend', method='POST')
+         span=friendAccepted.fullname
+         button.unfriend(name='id', value=friendAccepted.receiver) UNFRIEND
+    br
+  .required
+    h2 Required
+    ul
+    each friendReq in friendsReq
+      li
+        form(action='/user/friends/accepted', method='POST')
+         span=friendReq.fullname
+         button.accept(name='id', value=friendReq.sender) ACCEPT
+    br
+  .requested
+    h2 Requested
+    ul
+    each friendReqted in friendsReqted
+      li
+        form(action='/user/friends/stop', method='POST')
+         span=friendReqted.fullname
+         button.stop(name='id', value=friendReqted.receiver) STOP 
+    br
+  .friends
+    h2 Friends
+    ul
+    each friend in friends
+      li
+        form(action='/user/friends/requested', method='POST')
+         span=friend.fullname
+         button.send(name='id', value=friend.id) SEND REQUEST
+form(action='/user', method='GET')
+ button BACK 
